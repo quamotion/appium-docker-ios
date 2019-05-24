@@ -36,9 +36,11 @@ RUN wget -nv -nc -O xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb http
 && dpkg -i xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb \
 && rm xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb
 
+# Install ios-deploy, and make sure it is on the path
 RUN wget -nv -nc -O ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb http://cdn.quamotion.mobi/download/ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb \
 && dpkg -i ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb \
-&& rm ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb
+&& rm ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb \
+&& ln -s /usr/share/ios-deploy/ios-deploy /usr/bin/ios-deploy
 
 ## Install supervisor
 RUN apt-get install -y --no-install-recommends supervisor wait-for-it

@@ -12,6 +12,7 @@ run: docker_id
 		-v ${LICENSE_PATH}:/quamotion/.license \
 		-e DEVELOPER_PROFILE_PASSWORD=${DEVELOPER_PROFILE_PASSWORD} \
 		--rm \
+		--name appium-docker-ios \
 		`cat docker_id`
 
 debug: docker_id
@@ -22,5 +23,6 @@ debug: docker_id
 		-v ${LICENSE_PATH}:/quamotion/.license \
 		-e DEVELOPER_PROFILE_PASSWORD=${DEVELOPER_PROFILE_PASSWORD} \
 		--rm \
+		--name appium-docker-ios \
 		-it `cat docker_id` \
 		/bin/bash

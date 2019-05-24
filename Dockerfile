@@ -13,20 +13,23 @@ WORKDIR /appium
 
 ## Update Ubuntu, install curl
 RUN apt-get update \
-&& apt-get install -y software-properties-common apt-transport-https curl wget
-
+&& apt-get install -y software-properties-common apt-transport-https curl wget \
 ## Install node.js
-RUN curl -sL https://deb.nodesource.com/setup_$node_version -o setup-nodejs \
+&& curl -sL https://deb.nodesource.com/setup_$node_version -o setup-nodejs \
 && /bin/bash setup-nodejs \
 && rm setup-nodejs \
-&& apt-get install -y nodejs
-
+&& apt-get install -y nodejs \
 ## Install Appium
-RUN npm install -g appium@${appium_version} --unsafe-perm=true --allow-root
-
+&& npm install -g appium@${appium_version} --unsafe-perm=true --allow-root \
 ## Install libimobiledevice
-RUN add-apt-repository -y ppa:quamotion/ppa \
-&& apt-get install -y --no-install-recommends libplist-dev libusbmuxd-dev libusbmuxd-tools libimobiledevice-dev libimobiledevice-utils
+&& add-apt-repository -y ppa:quamotion/ppa \
+&& apt-get install -y --no-install-recommends libplist-dev libusbmuxd-dev libusbmuxd-tools libimobiledevice-dev libimobiledevice-utils \
+## Install supervisor and wait-for-it
+&& apt-get install -y --no-install-recommends supervisor wait-for-it \
+## For debug purposes only
+&& apt-get install -y nano \
+## Cleanup
+&& rm -rf /var/lib/apt/lists/*
 
 ## Install xcuitrunner
 ARG xcuitrunner_version=0.118.20-g69f2c6b29b
@@ -41,15 +44,6 @@ RUN wget -nv -nc -O ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb http:/
 && dpkg -i ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb \
 && rm ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb \
 && ln -s /usr/share/ios-deploy/ios-deploy /usr/bin/ios-deploy
-
-## Install supervisor
-RUN apt-get install -y --no-install-recommends supervisor wait-for-it
-
-## For debug purposes only
-RUN apt-get install -y nano
-
-## Cleanup
-RUN rm -rf /var/lib/apt/lists/*
 
 COPY start.sh .
 COPY appium.conf /etc/supervisor/conf.d/appium.conf

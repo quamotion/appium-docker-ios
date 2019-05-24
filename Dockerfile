@@ -5,6 +5,7 @@ ARG node_version=10.x
 LABEL maintainer "Frederik Carlier <frederik.carlier@quamotion.mobi>"
 
 EXPOSE 4723
+EXPOSE 8100
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -31,7 +32,6 @@ RUN add-apt-repository -y ppa:quamotion/ppa \
 ARG xcuitrunner_version=0.118.20-g69f2c6b29b
 ARG ios_deploy_version=0.118.20-g69f2c6b29b
 
-# TODO: Fix libssl dependency on Ubuntu 18.04 for xcuitrunner
 RUN wget -nv -nc -O xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb http://cdn.quamotion.mobi/download/xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb \
 && dpkg -i xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb \
 && rm xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb
@@ -40,9 +40,17 @@ RUN wget -nv -nc -O ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb http:/
 && dpkg -i ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb \
 && rm ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb
 
+## Install supervisor
+RUN apt-get install -y --no-install-recommends supervisor wait-for-it
+
+## For debug purposes only
+RUN apt-get install -y nano
+
 ## Cleanup
 RUN rm -rf /var/lib/apt/lists/*
 
 COPY start.sh .
+COPY appium.conf /etc/supervisor/conf.d/appium.conf
+COPY xcuitrunner.conf /etc/supervisor/conf.d/xcuitrunner.conf
 
 CMD [ "/bin/sh", "./start.sh" ]

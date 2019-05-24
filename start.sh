@@ -12,7 +12,7 @@ if [ -z "${UDID}" ];
 then
     if [ $(idevice_id -l | wc -l) = "1" ];
     then
-        UDID=`idevice_id -l`
+        export UDID=`idevice_id -l`
     else
         if [ $(idevice_id -l | wc -l) = "0" ];
         then
@@ -61,3 +61,5 @@ then
     echo "into /quamotion/.license, and try again"
     exit 1
 fi
+
+supervisord -n

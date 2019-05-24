@@ -4,9 +4,11 @@ ARG appium_version=1.13.0
 ARG node_version=10.x
 LABEL maintainer "Frederik Carlier <frederik.carlier@quamotion.mobi>"
 
+EXPOSE 4723
+
 ENV DEBIAN_FRONTEND=noninteractive
 
-WORKDIR /
+WORKDIR /appium
 
 ## Update Ubuntu, install curl
 RUN apt-get update \
@@ -23,7 +25,7 @@ RUN npm install -g appium@${appium_version} --unsafe-perm=true --allow-root
 
 ## Install libimobiledevice
 RUN add-apt-repository -y ppa:quamotion/ppa \
-&& apt-get install -y --no-install-recommends libplist-dev libusbmuxd-dev libusbmuxd-tools libimobiledevice-dev
+&& apt-get install -y --no-install-recommends libplist-dev libusbmuxd-dev libusbmuxd-tools libimobiledevice-dev libimobiledevice-utils
 
 ## Install xcuitrunner
 ARG xcuitrunner_version=0.118.20-g69f2c6b29b
@@ -40,3 +42,7 @@ RUN wget -nv -nc -O ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb http:/
 
 ## Cleanup
 RUN rm -rf /var/lib/apt/lists/*
+
+COPY start.sh .
+
+CMD [ "/bin/sh", "./start.sh" ]

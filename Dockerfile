@@ -32,8 +32,8 @@ RUN apt-get update \
 && rm -rf /var/lib/apt/lists/*
 
 ## Install xcuitrunner
-ARG xcuitrunner_version=0.118.20-g69f2c6b29b
-ARG ios_deploy_version=0.118.20-g69f2c6b29b
+ARG xcuitrunner_version=0.118.29
+ARG ios_deploy_version=0.118.29
 
 RUN wget -nv -nc -O xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb http://cdn.quamotion.mobi/download/xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb \
 && dpkg -i xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb \

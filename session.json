@@ -1,0 +1,11 @@
+{
+  "desiredCapabilities":
+  {
+    "webDriverAgentUrl":"http://127.0.0.1:8100",
+    "platformName":"iOS",
+    "automationName":"XCUITest",
+    "deviceName":"iPhone",
+    "udid":"72157b76f677f22c98864d62307fdff9d56fa62a",
+    "bundleId":"com.apple.Preferences"
+  }
+}

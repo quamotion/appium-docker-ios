@@ -1,4 +1,4 @@
-docker: Dockerfile
+docker: Dockerfile appium.conf start.sh xcuitrunner.conf
 	sudo docker build . -t quamotion/appium-docker-ios:dev
 	docker image ls -q quamotion/appium-docker-ios:dev > docker_id
 
@@ -26,3 +26,6 @@ debug: docker_id
 		--name appium-docker-ios \
 		-it `cat docker_id` \
 		/bin/bash
+
+test:
+	curl -X POST http://localhost:4723/wd/hub/session -H "Content-Type: application/json" -d @session.json

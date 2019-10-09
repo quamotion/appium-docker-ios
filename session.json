@@ -1,7 +1,6 @@
 {
   "desiredCapabilities":
   {
-    "webDriverAgentUrl":"http://127.0.0.1:8100",
     "platformName":"iOS",
     "automationName":"XCUITest",
     "deviceName":"iPhone",

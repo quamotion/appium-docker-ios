@@ -5,6 +5,8 @@ docker: Dockerfile appium.conf start.sh xcuitrunner.conf
 docker_id: docker
 
 run: docker_id
+	docker stop appium-docker-ios || true && docker rm appium-docker-ios || true
+
 	sudo docker run \
 		-p 4723:4723 \
 		-v /var/run/usbmuxd:/var/run/usbmuxd \
@@ -16,6 +18,8 @@ run: docker_id
 		`cat docker_id`
 
 debug: docker_id
+	docker stop appium-docker-ios || true && docker rm appium-docker-ios || true
+
 	sudo docker run \
 		-p 4723:4723 \
 		-v /var/run/usbmuxd:/var/run/usbmuxd \

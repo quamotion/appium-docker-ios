@@ -1,4 +1,4 @@
-docker: Dockerfile appium.conf start.sh xcuitrunner.conf
+docker: Dockerfile start.sh xcode/Contents/Info.plist xcode/carthage xcode/xcodebuild xcode/xcrun
 	sudo docker build . -t quamotion/appium-docker-ios:dev
 	docker image ls -q quamotion/appium-docker-ios:dev > docker_id
 
@@ -12,6 +12,7 @@ run: docker_id
 		-v /var/run/usbmuxd:/var/run/usbmuxd \
 		-v ${DEVELOPER_PROFILE_PATH}:/quamotion/quamotion.developerprofile \
 		-v ${LICENSE_PATH}:/quamotion/.license \
+		-v ${DEVELOPER_DISK_PATH}:/quamotion/devimg \
 		-e DEVELOPER_PROFILE_PASSWORD=${DEVELOPER_PROFILE_PASSWORD} \
 		--rm \
 		--name appium-docker-ios \
@@ -25,6 +26,7 @@ debug: docker_id
 		-v /var/run/usbmuxd:/var/run/usbmuxd \
 		-v ${DEVELOPER_PROFILE_PATH}:/quamotion/quamotion.developerprofile \
 		-v ${LICENSE_PATH}:/quamotion/.license \
+		-v ${DEVELOPER_DISK_PATH}:/quamotion/devimg \
 		-e DEVELOPER_PROFILE_PASSWORD=${DEVELOPER_PROFILE_PASSWORD} \
 		--rm \
 		--name appium-docker-ios \

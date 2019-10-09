@@ -1,5 +1,6 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/quamotion/appium-docker-ios.svg?style=flat-square)](https://hub.docker.com/r/quamotion/appium-docker-ios/)
 [![Docker Image](https://images.microbadger.com/badges/image/quamotion/appium-docker-ios.svg)](https://microbadger.com/images/quamotion/appium-docker-ios)
+[![Build Status](https://dev.azure.com/qmfrederik/appium-docker-ios/_apis/build/status/quamotion.appium-docker-ios?branchName=master)](https://dev.azure.com/qmfrederik/appium-docker-ios/_build/latest?definitionId=17&branchName=master)
 
 # Appium Docker for iOS
 

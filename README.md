@@ -38,8 +38,8 @@ docker run \
     -v /var/run/usbmuxd:/var/run/usbmuxd \
     -v ${DEVELOPER_PROFILE_PATH}:/quamotion/quamotion.developerprofile \
     -v ${LICENSE_PATH}:/quamotion/.license \
+    -v ${DEVELOPER_DISK_PATH}:/quamotion/devimg \
     -e DEVELOPER_PROFILE_PASSWORD=${DEVELOPER_PROFILE_PASSWORD} \
-    -e UDID=${UDID}
     quamotion/appium-docker-ios
 ```
 
@@ -48,7 +48,7 @@ Where:
 - `DEVELOPER_PROFILE_PATH` is the path to your iOS developer profile.
 - `DEVELOPER_PROFILE_PASSWORD` is the password for your iOS developer profile.
 - `LICENSE_PATH` is the path to your Quamotion license file.
-- `UDID` is the UDID of your device. You can omit this argument if you only have one iOS device connected to your host.
+- `DEVELOPER_DISK_PATH` is the path to the directory which contains the iOS Developer Disk images.
 
 ## Starting an Appium session
 
@@ -56,7 +56,6 @@ To start an Appium session on your iOS device:
 
 - Connect to the Appium server running at http://localhost:4723
 - Set the following capabilities:
-  * `webDriverAgentUrl` : `http://127.0.0.1:8100`
   * `platformName` : `iOS`
   * `automationName` : `XCUITest`
   * `deviceName` : `iPhone`,
@@ -69,7 +68,6 @@ For example, you could `POST http://localhost:4723/wd/hub/session` with header `
 {
   "desiredCapabilities":
   {
-    "webDriverAgentUrl":"http://127.0.0.1:8100",
     "platformName":"iOS",
     "automationName":"XCUITest",
     "deviceName":"iPhone",

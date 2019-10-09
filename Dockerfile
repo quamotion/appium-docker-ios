@@ -1,6 +1,6 @@
 FROM ubuntu:bionic
 
-ARG appium_version=1.13.0
+ARG appium_version=1.15.0
 ARG node_version=10.x
 LABEL maintainer "Frederik Carlier <frederik.carlier@quamotion.mobi>"
 
@@ -32,8 +32,8 @@ RUN apt-get update \
 && rm -rf /var/lib/apt/lists/*
 
 ## Install xcuitrunner
-ARG xcuitrunner_version=0.118.29
-ARG ios_deploy_version=0.118.29
+ARG xcuitrunner_version=0.127.81
+ARG ios_deploy_version=0.127.81
 
 RUN wget -nv -nc -O xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb http://cdn.quamotion.mobi/download/xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb \
 && dpkg -i xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb \

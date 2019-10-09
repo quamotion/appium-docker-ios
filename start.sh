@@ -62,4 +62,4 @@ then
     exit 1
 fi
 
-supervisord -n
+appium

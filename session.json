@@ -4,7 +4,8 @@
     "platformName":"iOS",
     "automationName":"XCUITest",
     "deviceName":"iPhone",
-    "udid":"72157b76f677f22c98864d62307fdff9d56fa62a",
+    "showXcodeLog": true,
+    "udid":"fc810465f67fd84d8fd88aa910a6ea3ff497e540",
     "bundleId":"com.apple.Preferences"
   }
 }

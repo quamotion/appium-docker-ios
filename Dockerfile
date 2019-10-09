@@ -24,8 +24,6 @@ RUN apt-get update \
 ## Install libimobiledevice
 && add-apt-repository -y ppa:quamotion/ppa \
 && apt-get install -y --no-install-recommends libplist-dev libusbmuxd-dev libusbmuxd-tools libimobiledevice-dev libimobiledevice-utils \
-## Install supervisor and wait-for-it
-&& apt-get install -y --no-install-recommends supervisor wait-for-it \
 ## For debug purposes only
 && apt-get install -y nano \
 ## Cleanup
@@ -39,14 +37,17 @@ RUN wget -nv -nc -O xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb http
 && dpkg -i xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb \
 && rm xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb
 
-# Install ios-deploy, and make sure it is on the path
+## Install ios-deploy, and make sure it is on the path
 RUN wget -nv -nc -O ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb http://cdn.quamotion.mobi/download/ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb \
 && dpkg -i ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb \
 && rm ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb \
 && ln -s /usr/share/ios-deploy/ios-deploy /usr/bin/ios-deploy
 
+## Create Xcode stubs
+COPY xcode /usr/local/xcode
+ENV DEVELOPER_DIR="/usr/local/xcode"
+ENV PATH="${DEVELOPER_DIR}:${PATH}"
+
 COPY start.sh .
-COPY appium.conf /etc/supervisor/conf.d/appium.conf
-COPY xcuitrunner.conf /etc/supervisor/conf.d/xcuitrunner.conf
 
 CMD [ "/bin/sh", "./start.sh" ]

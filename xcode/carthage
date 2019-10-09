@@ -1,0 +1,12 @@
+#!/bin/sh
+# Copyright (c) 2019 Quamotion bvba
+# All rights reserved.
+#
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
+#
+
+echo This is a stub for Carthage. It was invoked in "$(pwd)" with arguments "$@"
+echo Copying cartfile $(pwd)/Cartfile.resolved to $(pwd)/Carthage/
+mkdir -p Carthage/
+cp Cartfile.resolved Carthage/

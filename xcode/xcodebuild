@@ -47,10 +47,10 @@ case $command in
 
         /usr/share/xcuitrunner/xcuitrunner \
             run \
-            -d /quamotion/quamotion.developerprofile \
-            -p ${DEVELOPER_PROFILE_PASSWORD} \
-            -l /quamotion/.license \
-            -k /quamotion/devimg \
+            -d ${DEVELOPER_PROFILE_PATH:-/quamotion/quamotion.developerprofile} \
+            -p ${DEVELOPER_PROFILE_PASSWORD:-quamotion} \
+            -l ${LICENSE_PATH:-/quamotion/.license} \
+            -k ${DEVELOPER_IMAGE_PATH:-/quamotion/devimg} \
             -u ${udid} \
             -a ~
     ;;

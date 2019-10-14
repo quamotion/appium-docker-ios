@@ -45,7 +45,10 @@ case $command in
         esac
         done
 
-        /usr/share/xcuitrunner/xcuitrunner \
+        # Make the xcuitrunner process replace this bash script. This will cause
+        # SIGTERM/SIGINT signals to be forwarded directly to xcuitrunner, which
+        # can then handle it properly.
+        exec /usr/share/xcuitrunner/xcuitrunner \
             run \
             -d ${DEVELOPER_PROFILE_PATH:-/quamotion/quamotion.developerprofile} \
             -p ${DEVELOPER_PROFILE_PASSWORD:-quamotion} \

@@ -39,5 +39,6 @@ RUN curl -sL http://cdn.quamotion.mobi/download/xcuitrunner.${xcuitrunner_versio
 && rm xcuitrunner.${xcuitrunner_version}.linux-x64.deb
 
 COPY start.sh .
+ENV PATH="/usr/share/xcuitrunner:${PATH}"
 
 CMD [ "/bin/sh", "./start.sh" ]

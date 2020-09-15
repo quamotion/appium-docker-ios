@@ -8,25 +8,25 @@ then
     exit 1
 fi
 
-if [ ! -f /quamotion/quamotion.developerprofile ];
+if [ ! -f /etc/quamotion/quamotion.developerprofile ];
 then
-    echo "You have not provided a developer profile. Please mount your developer profile"
-    echo "to /quamotion/quamotion.developerprofile, and try again."
+    echo "You did not provide a developer profile. Please mount your developer profile"
+    echo "to /etc/quamotion/quamotion.developerprofile, and try again."
     exit 1
 fi
 
 if [ -z "${DEVELOPER_PROFILE_PASSWORD}" ];
 then
-    echo "You have not specified a password for use with your developer profile."
+    echo "You did not specify a password for use with your developer profile."
     echo "Please set the DEVELOPER_PROFILE_PASSWORD environment variable, and try"
     echo "again."
     exit 1
 fi
 
-if [ ! -f /quamotion/.license ];
+if [ ! -f /etc/quamotion/.license ];
 then
     echo "You have not specified a license file. Please mount your license file"
-    echo "into /quamotion/.license, and try again"
+    echo "into /etc/quamotion/.license, and try again"
     exit 1
 fi
 

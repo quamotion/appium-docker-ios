@@ -1,7 +1,7 @@
 FROM ubuntu:bionic
 
 ARG appium_version=1.15.0
-ARG node_version=10.x
+ARG node_version=12.x
 LABEL maintainer "Frederik Carlier <frederik.carlier@quamotion.mobi>"
 
 EXPOSE 4723

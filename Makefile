@@ -1,4 +1,4 @@
-docker: Dockerfile start.sh xcode/Contents/Info.plist xcode/carthage xcode/xcodebuild xcode/xcrun
+docker: Dockerfile start.sh
 	sudo docker build . -t quamotion/appium-docker-ios:dev
 	docker image ls -q quamotion/appium-docker-ios:dev > docker_id
 

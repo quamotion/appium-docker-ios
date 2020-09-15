@@ -44,11 +44,6 @@ RUN curl -sL http://cdn.quamotion.mobi/download/ios-deploy.${ios_deploy_version}
 && rm ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb \
 && ln -s /usr/share/ios-deploy/ios-deploy /usr/bin/ios-deploy
 
-## Create Xcode stubs
-COPY xcode /usr/local/xcode
-ENV DEVELOPER_DIR="/usr/local/xcode"
-ENV PATH="${DEVELOPER_DIR}:${PATH}"
-
 COPY start.sh .
 
 CMD [ "/bin/sh", "./start.sh" ]

@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM ubuntu:focal
 
 ARG appium_version=1.18.1
 ARG node_version=12.x

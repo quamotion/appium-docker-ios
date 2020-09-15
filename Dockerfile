@@ -27,16 +27,14 @@ RUN apt-get update \
 && apt-get update \
 && apt-get install -y --no-install-recommends libplist-dev libusbmuxd-dev libusbmuxd-tools libimobiledevice-dev libimobiledevice-utils \
 ## Install other dependencies
-&& apt-get install -y --no-install-recommends libturbojpeg libvncserver1 usbmuxd \
-## For debug purposes only
-&& apt-get install -y nano \
+&& apt-get install -y --no-install-recommends libturbojpeg libvncserver1 usbmuxd libicu66 \
 ## Cleanup
 && rm -rf /var/lib/apt/lists/*
 
 ## Install xcuitrunner
 ARG xcuitrunner_version=0.149.26
 
-RUN wget -nv -nc -O xcuitrunner.${xcuitrunner_version}.linux-x64.deb http://cdn.quamotion.mobi/download/xcuitrunner.${xcuitrunner_version}.linux-x64.deb \
+RUN curl -sL http://cdn.quamotion.mobi/download/xcuitrunner.${xcuitrunner_version}.linux-x64.deb -o xcuitrunner.${xcuitrunner_version}.linux-x64.deb \
 && dpkg -i xcuitrunner.${xcuitrunner_version}.linux-x64.deb \
 && rm xcuitrunner.${xcuitrunner_version}.linux-x64.deb
 

@@ -1,0 +1,36 @@
+addons:
+  apt:
+    packages:
+    - docker.io
+
+arch:
+- amd64
+- arm64
+
+services:
+- docker
+
+before-script:
+# Enable experimental mode so we can manipulate manifest lists.
+- mkdir -p ${HOME}/.docker
+- echo '{"experimental":"enabled"}' > ${HOME}/.docker/config.json
+# Set up Docker authentication.
+- docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+
+script:
+- docker build -t quamotion/appium-docker-ios:ci-${TRAVIS_BUILD_ID}-${TRAVIS_OS_NAME}-${TRAVIS_CPU_ARCH} .
+- docker push quamotion/appium-docker-ios:ci-${TRAVIS_BUILD_ID}-${TRAVIS_OS_NAME}-${TRAVIS_CPU_ARCH}
+
+# This deploy stage only runs once, skipping the build matrix.
+jobs:
+  include:
+  - stage: deploy
+    script:
+    - docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+    - VERSION=$(docker run quamotion/appium-docker-ios:ci-${TRAVIS_BUILD_ID}-${TRAVIS_OS_NAME}-${TRAVIS_CPU_ARCH} /usr/share/xcuitrunner/xcuitrunner --version | awk '{split($0,a,"+"); print a[1]}')
+
+    - docker manifest create quamotion/appium-docker-ios:${VERSION} quamotion/appium-docker-ios:ci-${TRAVIS_BUILD_ID}-linux-amd64 quamotion/appium-docker-ios:ci-${TRAVIS_BUILD_ID}-linux-arm64
+    - docker manifest push quamotion/appium-docker-ios:${VERSION}
+
+    - docker manifest create quamotion/appium-docker-ios:latest quamotion/appium-docker-ios:ci-${TRAVIS_BUILD_ID}-linux-amd64 quamotion/appium-docker-ios:ci-${TRAVIS_BUILD_ID}-linux-arm64
+    - docker manifest push quamotion/appium-docker-ios:latest

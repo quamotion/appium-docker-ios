@@ -32,7 +32,7 @@ RUN apt-get update \
 && rm -rf /var/lib/apt/lists/*
 
 ## Install xcuitrunner
-ARG xcuitrunner_version=0.149.26
+ARG xcuitrunner_version=0.150.12
 
 RUN curl -sL http://cdn.quamotion.mobi/download/xcuitrunner.${xcuitrunner_version}.linux-x64.deb -o xcuitrunner.${xcuitrunner_version}.linux-x64.deb \
 && dpkg -i xcuitrunner.${xcuitrunner_version}.linux-x64.deb \

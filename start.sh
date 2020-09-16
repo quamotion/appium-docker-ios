@@ -30,4 +30,4 @@ then
     exit 1
 fi
 
-appium
+exec appium

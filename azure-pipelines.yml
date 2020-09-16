@@ -4,14 +4,38 @@ trigger:
 stages:
 - stage: Build
   displayName: Build quamotion/appium-docker-ios-image
-  jobs:  
-  - job: Build
-    displayName: Build
+  jobs:
+  - job: linux
+    displayName: linux
     pool:
       vmImage: 'ubuntu-latest'
     steps:
     - task: Docker@2
-      displayName: Build an image
+      displayName: Build Docker image
       inputs:
         command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        repository: quamotion/appium-docker-ios
+        dockerfile: '$(Build.SourcesDirectory)/linux/Dockerfile'
+        tags: linux
+
+  - job: windows
+    displayName: windows
+    variables:
+      imageName: 'quamotion/appium-docker-ios:windows'
+    pool:
+      vmImage: 'windows-2019'
+    steps:
+    - script: |
+        docker login -u="$(DOCKER_USERNAME)" -p="$(DOCKER_PASSWORD)"
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+      displayName: 'docker login'
+
+    - script: |
+        cd windows
+        docker build -f Dockerfile -t $(imageName) .
+      displayName: 'docker build'
+
+    - script: |
+        docker push $(imageName)
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+      displayName: 'docker push'

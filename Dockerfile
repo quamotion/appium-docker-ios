@@ -34,9 +34,18 @@ RUN apt-get update \
 ## Install xcuitrunner
 ARG xcuitrunner_version=0.150.12
 
-RUN curl -sL http://cdn.quamotion.mobi/download/xcuitrunner.${xcuitrunner_version}.linux-x64.deb -o xcuitrunner.${xcuitrunner_version}.linux-x64.deb \
-&& dpkg -i xcuitrunner.${xcuitrunner_version}.linux-x64.deb \
-&& rm xcuitrunner.${xcuitrunner_version}.linux-x64.deb
+RUN architecture=$(uname -m) \
+&& case "$architecture" in \
+    x86_64) \
+        architecture=x64 \
+        ;; \
+    aarch64) \
+        architecture=arm64 \
+        ;; \
+esac \
+&& curl -sL http://cdn.quamotion.mobi/download/xcuitrunner.${xcuitrunner_version}.linux-${architecture}.deb -o xcuitrunner.${xcuitrunner_version}.linux-${architecture}.deb \
+&& dpkg -i xcuitrunner.${xcuitrunner_version}.linux-${architecture}.deb \
+&& rm xcuitrunner.${xcuitrunner_version}.linux-${architecture}.deb
 
 COPY start.sh .
 ENV PATH="/usr/share/xcuitrunner:${PATH}"

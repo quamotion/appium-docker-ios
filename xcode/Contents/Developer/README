@@ -1,7 +1,0 @@
-This directory has been intentionally left empty.
-
-Appium will check for the existence of this directory, but will not
-use this directory in any other way.
-
-The sole purpose of this file is to ensure Git and commands like
-`cp -r` also create this directory.

@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM ubuntu:focal
 
 ARG appium_version=1.18.1
 ARG node_version=12.x
@@ -26,29 +26,19 @@ RUN apt-get update \
 && curl -L "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x024af839d0ecfa7fc85161d6246b4769e25e7a74" | apt-key add - \
 && apt-get update \
 && apt-get install -y --no-install-recommends libplist-dev libusbmuxd-dev libusbmuxd-tools libimobiledevice-dev libimobiledevice-utils \
-&& apt-get install -y libicu60 \
+## Install other dependencies
+&& apt-get install -y --no-install-recommends libturbojpeg libvncserver1 usbmuxd libicu66 \
 ## Cleanup
 && rm -rf /var/lib/apt/lists/*
 
 ## Install xcuitrunner
-ARG xcuitrunner_version=0.127.81
-ARG ios_deploy_version=0.127.81
+ARG xcuitrunner_version=0.150.12
 
-RUN curl -sL http://cdn.quamotion.mobi/download/xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb -o xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb \
-&& dpkg -i xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb \
-&& rm xcuitrunner.${xcuitrunner_version}.ubuntu.18.04-x64.deb
-
-## Install ios-deploy, and make sure it is on the path
-RUN curl -sL http://cdn.quamotion.mobi/download/ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb -o ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb \
-&& dpkg -i ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb \
-&& rm ios-deploy.${ios_deploy_version}.ubuntu.18.04-x64.deb \
-&& ln -s /usr/share/ios-deploy/ios-deploy /usr/bin/ios-deploy
-
-## Create Xcode stubs
-COPY xcode /usr/local/xcode
-ENV DEVELOPER_DIR="/usr/local/xcode"
-ENV PATH="${DEVELOPER_DIR}:${PATH}"
+RUN curl -sL http://cdn.quamotion.mobi/download/xcuitrunner.${xcuitrunner_version}.linux-x64.deb -o xcuitrunner.${xcuitrunner_version}.linux-x64.deb \
+&& dpkg -i xcuitrunner.${xcuitrunner_version}.linux-x64.deb \
+&& rm xcuitrunner.${xcuitrunner_version}.linux-x64.deb
 
 COPY start.sh .
+ENV PATH="/usr/share/xcuitrunner:${PATH}"
 
 CMD [ "/bin/sh", "./start.sh" ]

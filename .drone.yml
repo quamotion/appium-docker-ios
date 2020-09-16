@@ -1,0 +1,39 @@
+kind: pipeline
+name: linux-arm64
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+- name: build
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    repo: quamotion/appium-docker-ios
+    tags: latest-arm64
+    dockerfile: Dockerfile
+
+---
+
+kind: pipeline
+name: linux-amd64
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: build
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    repo: quamotion/appium-docker-ios
+    tags: latest
+    dockerfile: Dockerfile

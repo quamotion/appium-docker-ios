@@ -27,7 +27,7 @@ stages:
     steps:
     - script: |
         docker login -u="$(DOCKER_USERNAME)" -p="$(DOCKER_PASSWORD)"
-      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+      condition: eq(variables['Build.SourceBranch'], 'refs/features/windows')
       displayName: 'docker login'
 
     - script: |
@@ -37,5 +37,5 @@ stages:
 
     - script: |
         docker push $(imageName)
-      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/features/windows'))
       displayName: 'docker push'

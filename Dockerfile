@@ -32,7 +32,7 @@ RUN apt-get update \
 && rm -rf /var/lib/apt/lists/*
 
 ## Install xcuitrunner
-ARG xcuitrunner_version=0.150.12
+ARG xcuitrunner_version=0.150.28
 
 RUN architecture=$(uname -m) \
 && case "$architecture" in \

@@ -25,9 +25,10 @@ fi
 
 if [ ! -f /etc/quamotion/.license ];
 then
-    echo "You have not specified a license file. Please mount your license file"
+    echo "You have not specified a license file."
+    echo "Without license you can only use the container for 5 minutes."
+    echo "Please mount your license file"
     echo "into /etc/quamotion/.license, and try again"
-    exit 1
 fi
 
 exec appium

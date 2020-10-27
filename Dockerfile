@@ -1,6 +1,6 @@
 FROM ubuntu:focal
 
-ARG appium_version=1.18.1
+ARG appium_version=1.18.2
 ARG node_version=12.x
 LABEL maintainer "Frederik Carlier <frederik.carlier@quamotion.mobi>"
 
@@ -16,7 +16,7 @@ ENV APPIUM_SKIP_CHROMEDRIVER_INSTALL=1
 ENV NODE_ENV=production
 
 # Install xcuitrunner
-ARG xcuitrunner_version=0.150.31
+ARG xcuitrunner_version=1.0.1
 
 WORKDIR /appium
 

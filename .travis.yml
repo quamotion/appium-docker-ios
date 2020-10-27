@@ -20,6 +20,8 @@ before-script:
 script:
 - docker build -t quamotion/appium-docker-ios:ci-${TRAVIS_BUILD_ID}-${TRAVIS_OS_NAME}-${TRAVIS_CPU_ARCH} .
 - docker push quamotion/appium-docker-ios:ci-${TRAVIS_BUILD_ID}-${TRAVIS_OS_NAME}-${TRAVIS_CPU_ARCH}
+- docker run quamotion/appium-docker-ios:ci-${TRAVIS_BUILD_ID}-${TRAVIS_OS_NAME}-${TRAVIS_CPU_ARCH} node --version
+- docker run quamotion/appium-docker-ios:ci-${TRAVIS_BUILD_ID}-${TRAVIS_OS_NAME}-${TRAVIS_CPU_ARCH} xcuitrunner --version
 
 # This deploy stage only runs once, skipping the build matrix.
 jobs:

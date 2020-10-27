@@ -46,7 +46,7 @@ esac \
 && dpkg -i xcuitrunner.${xcuitrunner_version}.linux-${architecture}.deb \
 && rm xcuitrunner.${xcuitrunner_version}.linux-${architecture}.deb \
 ## Cleanup
-&& apt-get remove -y wget gnupg ca-certificates \
+&& apt-get remove -y wget gnupg \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 

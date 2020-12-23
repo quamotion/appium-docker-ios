@@ -31,7 +31,7 @@ RUN apt-get update \
 ## Install Appium
 && npm install -g appium@${appium_version} --unsafe-perm=true --allow-root \
 ## Install xcuitrunner dependencies
-&& apt-get install -y --no-install-recommends libusbmuxd-tools libturbojpeg libvncserver1 libicu66 libgssapi-krb5-2 \
+&& apt-get install -y --no-install-recommends libusbmuxd-tools libturbojpeg libvncserver1 libicu66 libgssapi-krb5-2 libgdiplus \
 ## Install xcuitrunner
 && architecture=$(uname -m) \
 && case "$architecture" in \

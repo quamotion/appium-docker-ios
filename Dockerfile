@@ -16,7 +16,7 @@ ENV APPIUM_SKIP_CHROMEDRIVER_INSTALL=1
 ENV NODE_ENV=production
 
 # Install xcuitrunner
-ARG xcuitrunner_version=1.3.40
+ARG xcuitrunner_version=1.4.38
 
 WORKDIR /appium
 
@@ -31,7 +31,7 @@ RUN apt-get update \
 ## Install Appium
 && npm install -g appium@${appium_version} --unsafe-perm=true --allow-root \
 ## Install xcuitrunner dependencies
-&& apt-get install -y --no-install-recommends libusbmuxd-tools libturbojpeg libvncserver1 libicu66 libgssapi-krb5-2 \
+&& apt-get install -y --no-install-recommends libusbmuxd-tools libturbojpeg libvncserver1 libicu66 libgssapi-krb5-2 libgdiplus \
 ## Install xcuitrunner
 && architecture=$(uname -m) \
 && case "$architecture" in \

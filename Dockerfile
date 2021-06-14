@@ -1,7 +1,7 @@
 FROM ubuntu:focal
 
-ARG appium_version=1.20.2
-ARG node_version=12.x
+ARG appium_version=1.21.0
+ARG node_version=14.x
 LABEL maintainer "Frederik Carlier <frederik.carlier@quamotion.mobi>"
 
 EXPOSE 4723

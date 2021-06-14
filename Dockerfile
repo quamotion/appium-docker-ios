@@ -16,7 +16,7 @@ ENV APPIUM_SKIP_CHROMEDRIVER_INSTALL=1
 ENV NODE_ENV=production
 
 # Install xcuitrunner
-ARG xcuitrunner_version=1.6.6
+ARG xcuitrunner_version=1.8.4
 
 WORKDIR /appium
 

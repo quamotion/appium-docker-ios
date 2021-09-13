@@ -1,0 +1,73 @@
+kind: pipeline
+name: linux-amd64
+type: docker
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: build
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    repo: quamotion/appium-docker-ios
+    tags: ${DRONE_BUILD_NUMBER}-linux-amd64
+
+---
+
+kind: pipeline
+name: linux-arm64
+type: docker
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+- name: build
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    repo: quamotion/appium-docker-ios
+    tags: ${DRONE_BUILD_NUMBER}-linux-arm64
+
+---
+
+kind: pipeline
+type: docker
+name: manifest
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: get_version
+  image: quamotion/appium-docker-ios:${DRONE_BUILD_NUMBER}-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
+  commands:
+    - /usr/share/xcuitrunner/xcuitrunner --version | awk '{split($0,a,"+"); print a[1]}' | tee .tags
+    - cat .tags
+
+- name: manifest
+  image: plugins/manifest
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    target: quamotion/appium-docker-ios
+    template: quamotion/appium-docker-ios:${DRONE_BUILD_NUMBER}-OS-ARCH
+    platforms:
+      - linux/amd64
+      - linux/arm64
+
+depends_on:
+- linux-amd64
+- linux-arm64

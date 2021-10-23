@@ -15,7 +15,7 @@ steps:
     password:
       from_secret: docker_password
     repo: quamotion/appium-docker-ios
-    tags: ${DRONE_BUILD_NUMBER}-linux-amd64
+    tags: ${DRONE_COMMIT}-linux-amd64
 
 ---
 
@@ -36,7 +36,7 @@ steps:
     password:
       from_secret: docker_password
     repo: quamotion/appium-docker-ios
-    tags: ${DRONE_BUILD_NUMBER}-linux-arm64
+    tags: ${DRONE_COMMIT}-linux-arm64
 
 ---
 
@@ -50,7 +50,7 @@ platform:
 
 steps:
 - name: get_version
-  image: quamotion/appium-docker-ios:${DRONE_BUILD_NUMBER}-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
+  image: quamotion/appium-docker-ios:${DRONE_COMMIT}-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
   commands:
     - /usr/share/xcuitrunner/xcuitrunner --version | awk '{split($0,a,"+"); print a[1]}' | tee .tags
     - cat .tags
@@ -62,11 +62,7 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    target: quamotion/appium-docker-ios
-    template: quamotion/appium-docker-ios:${DRONE_BUILD_NUMBER}-OS-ARCH
-    platforms:
-      - linux/amd64
-      - linux/arm64
+    spec: manifest.tmpl
 
 depends_on:
 - linux-amd64

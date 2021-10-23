@@ -1,0 +1,19 @@
+image: quamotion/appium-docker-ios:latest
+{{#if build.tags}}
+tags:
+{{#each build.tags}}
+  - {{this}}
+{{/each}}
+{{/if}}
+manifests:
+  -
+    image: quamotion/appium-docker-ios:{{ build.commit }}-linux-amd64
+    platform:
+      architecture: amd64
+      os: linux
+  -
+    image: quamotion/appium-docker-ios:{{ build.commit }}-linux-arm64
+    platform:
+      architecture: arm64
+      os: linux
+      variant: v8

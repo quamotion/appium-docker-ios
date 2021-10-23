@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM public.ecr.aws/lts/ubuntu:focal
 
 ARG appium_version=1.21.0
 ARG node_version=14.x
@@ -16,7 +16,7 @@ ENV APPIUM_SKIP_CHROMEDRIVER_INSTALL=1
 ENV NODE_ENV=production
 
 # Install xcuitrunner
-ARG xcuitrunner_version=1.11.35
+ARG xcuitrunner_version=2.1.44
 
 WORKDIR /appium
 

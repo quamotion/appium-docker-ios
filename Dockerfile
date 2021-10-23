@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM public.ecr.aws/lts/ubuntu:focal
 
 ARG appium_version=1.20.2
 ARG node_version=12.x
